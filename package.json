@@ -1,0 +1,14 @@
+{
+    "name": "EasyFear",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "start": "node app.js"
+    },
+    "dependencies": {
+        "underscore": "*",
+        "underscore.string": "*",
+        "pdfkit": "*",
+        "csv-parse": "*"
+    }
+}
