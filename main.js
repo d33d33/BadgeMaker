@@ -5,7 +5,7 @@ var PdfDoc = require('pdfkit'),
     _s     = require('underscore.string');
 
 var outDir = './BADGES';
-var inDir = './csv'
+var inDir = './csv';
 
 fs.readdir(inDir, function (err, files)
 {
@@ -107,8 +107,10 @@ fs.readdir(inDir, function (err, files)
                         })
                         .rotate(90);
 
+
                     doc.rotate(90)
-                        .image('img/sw_logo.jpg', cardHeight * i + 16, -570, {width: cardHeight - 2 * margin})
+                        .image('img/sw_logo.jpg', cardHeight * i + 16 + 15, -570, 
+                                {width: cardHeight - 2 * margin - 30}) // I need some free place for the barcode, so I reduce the image size...
                         .fontSize(14)
                         .text('En cas de problème joindre', cardHeight * i, -doc.page.width + margin + 10, {
                             width: cardHeight,
@@ -128,7 +130,20 @@ fs.readdir(inDir, function (err, files)
                         .text('Noëlla : 06 12 12 66 40', cardHeight * i + 40, -460, {
                             width: cardHeight,
                             align: 'left'
+                        })     
+                        .font('fonts/font3of9.ttf').fontSize(34)
+                        .text('*' + person['N° de participant'] + '*', cardHeight * i + 40, -360, {
+                            width: cardHeight,
+                            align: 'left'
                         })
+                        .font('fonts/Roboto-Regular.ttf').fontSize(14)
+                        .text(person['N° de participant'], cardHeight * i + 40 + 35, -335, {
+                            width: cardHeight,
+                            align: 'left'
+                        })                        
+                        .font('fonts/Roboto-Regular.ttf').fontSize(14)
+
+                                         
                         .rotate(-90);
                 });
                 doc.end();
