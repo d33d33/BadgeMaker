@@ -6,7 +6,6 @@ var PdfDoc = require('pdfkit'),
 
 var outDir = './BADGES';
 var inDir = './csv';
-var tmpDir = './tmp';
 
 fs.readdir(inDir, function (err, files)
 {
@@ -149,21 +148,6 @@ fs.readdir(inDir, function (err, files)
                 });
                 doc.end();
             });
-        });
-    });
-});
-
-fs.readdir(tmpDir, function (err, files)
-{
-    if (err)
-    {
-        throw err;
-    }
-
-    _.each(files, function (filename)
-    {
-        fs.unlink(tmpDir + '/' + filename, function (err, str)  {
-            if (err) throw err;
         });
     });
 });
