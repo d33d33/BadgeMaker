@@ -23,6 +23,10 @@ fs.readdir(inDir, function (err, files)
         var outFile = outDir + '/' + filename.substr(0, filename.length - 4) + '.pdf';
         console.info('Processing ' + filename + ' -> ' + outFile);
 
+        if (!fs.existsSync(outDir)){
+            fs.mkdirSync(outDir);
+        }
+
         fs.readFile(inDir + '/' + filename, function (err, str)
         {
             if (err)
@@ -109,7 +113,7 @@ fs.readdir(inDir, function (err, files)
 
 
                     doc.rotate(90)
-                        .image('img/sw_logo.jpg', cardHeight * i + 16 + 15, -570, 
+                        .image('img/sw_logo.jpg', cardHeight * i + 16 + 15, -570,
                                 {width: cardHeight - 2 * margin - 30}) // I need some free place for the barcode, so I reduce the image size...
                         .fontSize(14)
                         .text('En cas de problème joindre', cardHeight * i, -doc.page.width + margin + 10, {
@@ -130,7 +134,7 @@ fs.readdir(inDir, function (err, files)
                         .text('Noëlla : 06 12 12 66 40', cardHeight * i + 40, -460, {
                             width: cardHeight,
                             align: 'left'
-                        })     
+                        })
                         .font('fonts/font3of9.ttf').fontSize(34)
                         .text('*' + person['N° de participant'] + '*', cardHeight * i + 40, -360, {
                             width: cardHeight,
@@ -140,10 +144,10 @@ fs.readdir(inDir, function (err, files)
                         .text(person['N° de participant'], cardHeight * i + 40 + 35, -335, {
                             width: cardHeight,
                             align: 'left'
-                        })                        
+                        })
                         .font('fonts/Roboto-Regular.ttf').fontSize(14)
 
-                                         
+
                         .rotate(-90);
                 });
                 doc.end();
