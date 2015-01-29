@@ -39,6 +39,8 @@ fs.readdir('./', function (err, files)
                     }),
                     cardHeight = doc.page.height / 4,
                     margin = 16;
+
+                doc.pipe(fs.createWriteStream(outFile));
                 doc.font('fonts/Roboto-Regular.ttf');
 
                 _.each(data, function (person, index)
@@ -128,17 +130,7 @@ fs.readdir('./', function (err, files)
                         })
                         .rotate(-90);
                 });
-
-                doc.output(function (pdfData)
-                {
-                    if (!fs.existsSync(outDir)){
-                        fs.mkdirSync(outDir);
-                    }
-
-                    var wstream = fs.createWriteStream(outFile);
-                    wstream.write(pdfData);
-                    wstream.end();
-                });
+                doc.end();
             });
         });
     });
