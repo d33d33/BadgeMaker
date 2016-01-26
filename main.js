@@ -96,18 +96,47 @@ fs.readdir(inDir, function (err, files)
                         return ret.slice(0, ret.length - 1);
                     };
 
+                    var color = '',
+                        offset = 0;
+                    if(person['Statut'] === 'Mentor' || person['Statut'] === 'Facilitateur')
+                      color = '#3aaa35'
+                    else if(person['Statut'] === 'Bénévole')
+                      color = '#e6007e'
+                    else if(person['Statut'] === 'Jury')
+                      color = '#ef7d00'
+                    else if(person['Statut'] === 'Team orga' || person['Statut'] === 'Infolab')
+                      color = '#36a9e1'
+
+
+                    if( color) {
+                      offset = 30;
+                      
+                      doc.rotate(-90)
+                      .font('fonts/Roboto-Bold.ttf')
+                      .fontSize(26)
+                      .fillColor(color)
+                      .text((person['Statut'] || '').toUpperCase(),  -cardHeight * (i + 1) + margin, 95, {
+                          width: cardHeight - 2 * margin,
+                          align: 'center'
+                      })
+                      .fillColor('black')
+                      .font('fonts/Roboto-Regular.ttf')
+                      .rotate(90)
+                    }
+
                     doc.rotate(-90)
                         .image('img/sw.png', -cardHeight * (i + 1) + margin, margin, {width: cardHeight - 2 * margin})
                         .fontSize(26)
-                        .text(capitalizeEach(person['Prénom']), -cardHeight * (i + 1) + margin, 110, {
+                        .text(capitalizeEach(person['Prénom']), -cardHeight * (i + 1) + margin, 110 + offset, {
                             width: cardHeight - 2 * margin,
                             align: 'center',
                             continued: true
                         })
                         .fontSize(20)
-                        .text('\n\n' + person['Nom'].toUpperCase(), {
+                        .text('\n' + person['Nom'].toUpperCase(), {
                             align: 'center',
-                            style: 'bold'
+                            style: 'bold',
+                            lineGap: 12
                         })
                         .rotate(90);
 
