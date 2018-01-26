@@ -6,8 +6,10 @@
     "start": "node app.js"
   },
   "dependencies": {
-    "csv-parse": "*",
-    "pdfkit": "*",
+    "csv-parse": "^2.0.0",
+    "fs-extra-promise": "^1.0.1",
+    "pdfkit": "^0.8.3",
+    "qrcode": "^1.2.0",
     "underscore": "*",
     "underscore.string": "*"
   }
